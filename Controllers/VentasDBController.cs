@@ -28,7 +28,7 @@ namespace Softtek.Controllers
           "vendedor": "Karina Sarmiento",
           "total": 7200.50
         }   
-
+         
         {
           "id": 2,
           "factura": "F001-00001919",

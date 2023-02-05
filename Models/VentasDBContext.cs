@@ -9,7 +9,7 @@ namespace Softtek.Models
 
         }
 
-        public DbSet<Ventas> Ventas { get; set; } 
+        public DbSet<Ventas> Ventas { get; set; }  
 
     }
 }
