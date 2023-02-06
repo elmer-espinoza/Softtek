@@ -22,12 +22,13 @@ namespace Softtek.Controllers
             _config = config;
         }
 
-
+/*
         [HttpGet]
         public IActionResult Get()
         {
             return Ok("Hola"); 
         }
+*/
 
         [HttpPost]
         public IActionResult Login (LoginUser loginUser)
