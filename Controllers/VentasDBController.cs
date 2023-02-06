@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Softtek.Constans;
 using Softtek.Models;
 
 namespace Softtek.Controllers
@@ -13,40 +15,42 @@ namespace Softtek.Controllers
         private readonly VentasDBContext _dbContext;
 
         public VentasDBController(VentasDBContext dbcontext)
+            {
+                _dbContext = dbcontext;
+            }
+
+        
+        [HttpPost]
+        [Route("Resetear")]
+        [Authorize(Roles = ("Administrador"))]
+        public IActionResult ResetearVentas()
         {
-            _dbContext = dbcontext;
+            var venta = VentasConstans.Ventas;
+
+            foreach (var _venta in _dbContext.Ventas)
+            {
+                _dbContext.Remove(_venta);
+            }
+            _dbContext.SaveChanges();
+
+            for (int i = 0; i < venta.Count; i++)
+         // for (int i = venta.Count - 1;  i > -1; i--)
+            {
+                _dbContext.Add(venta[i]);
+            }
+            _dbContext.SaveChanges();
+            return Created("In Memory DataBse fue Reseteada",venta);
         }
 
-        /*
-        
-        {
-          "id": 1,
-          "factura": "F001-00002020",
-          "fecha": "2023-02-04T06:59:45.029Z",
-          "cliente": "MINERA YANACOCHA",
-          "producto": "IMPRESORA PHASER 8050",
-          "vendedor": "Karina Sarmiento",
-          "total": 7200.50
-        }   
-         
-        {
-          "id": 2,
-          "factura": "F001-00001919",
-          "fecha": "2023-02-04T07:02:45.029Z",
-          "cliente": "AFP INTEGRA SAC",
-          "producto": "COPIADORA HODAKA 4550",
-          "vendedor": "Fiorella Piccini",
-          "total": 2400.50
-        }   
-
-        */
 
 
         [HttpGet]
         [Route("Listar")]
         public List<Ventas> ListarVentas()
         {
+
             return _dbContext.Ventas.ToList();
+
         }
 
         //[HttpGet("{id}")] 
@@ -60,7 +64,7 @@ namespace Softtek.Controllers
                 return "Venta con Id " + id.ToString() + " no existe";
             }
 
-            return _dbContext.Ventas.SingleOrDefault(e => e.Id == id);
+            return venta;
         }
 
         [HttpPost]
