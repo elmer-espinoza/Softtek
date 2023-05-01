@@ -26,10 +26,6 @@
 	<None Remove="Controllers\VentasController.cs.offline" />
 	<None Remove="WeatherForecast.cs.offline" />
 	<None Remove="WeatherForecastController.cs.offline" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Include="Backup\VentasController.cs.offline" />
   </ItemGroup>	
 	
 </Project>

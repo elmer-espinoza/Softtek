@@ -22,7 +22,7 @@ namespace Softtek.Controllers
         
         [HttpPost]
         [Route("Resetear")]
-        [Authorize(Roles = ("Administrador"))]
+        [Authorize(Roles = ("Administrador, QA"))]
         public IActionResult ResetearVentas()
         {
             var venta = VentasConstans.Ventas;
