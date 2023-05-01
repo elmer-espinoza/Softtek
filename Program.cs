@@ -18,6 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 // Add services to the container.
 
+var jummy = 0;
+
 builder.Services.AddDbContext<VentasDBContext>(option => option.UseInMemoryDatabase(builder.Configuration.GetConnectionString("MyDb")));
 builder.Services.AddControllers();
 
